@@ -3,14 +3,15 @@ use crate::colors::Color;
 const MAGIC_NUMBER: &str = "P3";
 const MAX_COLOR_VALUE: u64 = 255;
 
+#[derive(Debug)]
 pub struct Canvas {
-    width: usize,
-    height: usize,
+    pub width: usize,
+    pub height: usize,
     pixels: Vec<Vec<Color>>,
 }
 
 impl Canvas {
-    fn new(width: usize, height: usize) -> Canvas {
+    pub fn new(width: usize, height: usize) -> Canvas {
         let mut pixels = Vec::new();
         for _ in 0..height {
             let mut row = Vec::new();
@@ -30,7 +31,10 @@ impl Canvas {
             pixels,
         }
     }
-    fn write_pixel(&mut self, x: usize, y: usize, color: Color) {
+    pub fn write_pixel(&mut self, x: usize, y: usize, color: Color) {
+        if x >= self.width || y >= self.height {
+            return;
+        }
         self.pixels[y][x] = color
     }
 }
@@ -76,7 +80,7 @@ fn row_to_string(colors: &Vec<Color>) -> String {
         .join(" ");
 }
 
-fn canvas_to_ppm(canvas: &Canvas) -> String {
+pub fn canvas_to_ppm(canvas: &Canvas) -> String {
     format!(
         "{magic_number}\n{width} {height}\n{max_color_value}\n{pixels}",
         magic_number = MAGIC_NUMBER,

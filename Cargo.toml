@@ -4,4 +4,12 @@ version = "0.1.0"
 authors = ["John Swanson <john.d.swanson@gmail.com>"]
 edition = "2018"
 
+[lib]
+name = "raytracer"
+path = "src/lib.rs"
+
+[[bin]]
+name = "raytracer"
+path = "src/main.rs"
+
 [dependencies]
