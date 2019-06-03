@@ -1,6 +1,9 @@
 use crate::tuples::is_equal;
 use core::ops;
-use std::num;
+
+const MIN: f64 = 0.0;
+const MAX: f64 = 1.0;
+
 #[derive(Debug)]
 pub struct Color {
     pub red: f64,
@@ -8,9 +11,26 @@ pub struct Color {
     pub blue: f64,
 }
 
+fn clamp(v: f64) -> f64 {
+    if v < MIN {
+        return MIN;
+    }
+    if v > MAX {
+        return MAX;
+    }
+    return v;
+}
+
 impl Color {
     fn color(red: f64, green: f64, blue: f64) -> Color {
         Color { red, green, blue }
+    }
+    pub fn clamped(&self) -> Color {
+        Color {
+            red: clamp(self.red),
+            green: clamp(self.green),
+            blue: clamp(self.blue),
+        }
     }
 }
 
