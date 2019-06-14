@@ -82,7 +82,7 @@ fn row_to_string(colors: &Vec<Color>) -> String {
 
 pub fn canvas_to_ppm(canvas: &Canvas) -> String {
     format!(
-        "{magic_number}\n{width} {height}\n{max_color_value}\n{pixels}",
+        "{magic_number}\n{width} {height}\n{max_color_value}\n{pixels}\n",
         magic_number = MAGIC_NUMBER,
         width = canvas.width,
         height = canvas.height,
