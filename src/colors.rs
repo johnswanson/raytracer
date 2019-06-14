@@ -1,4 +1,4 @@
-use crate::tuples::is_equal;
+use crate::tuples::ApproxEq;
 use core::ops;
 
 const MIN: f64 = 0.0;
@@ -36,9 +36,9 @@ impl Color {
 
 impl PartialEq for Color {
     fn eq(&self, other: &Color) -> bool {
-        is_equal(self.red, other.red)
-            && is_equal(self.green, other.green)
-            && is_equal(self.blue, other.blue)
+        (self.red.approx_eq(other.red))
+            && (self.green.approx_eq(other.green))
+            && (self.blue.approx_eq(other.blue))
     }
 }
 
