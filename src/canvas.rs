@@ -102,6 +102,7 @@ mod tests {
     use crate::canvas;
     use crate::canvas::Canvas;
     use crate::colors::Color;
+    use crate::tuples::ApproxEq;
     #[test]
     fn creating_canvas() {
         let canvas = Canvas::new(10 as usize, 20 as usize);
@@ -118,13 +119,12 @@ mod tests {
             blue: 0.0,
         };
         canvas.write_pixel(2, 3, red);
-        assert_eq!(
+        assert!(
             Color {
                 red: 1.0,
                 green: 0.0,
                 blue: 0.0,
-            },
-            canvas.pixels[3][2]
+            }.approx_eq(&canvas.pixels[3][2])
         );
     }
     #[test]

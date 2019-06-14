@@ -34,8 +34,8 @@ impl Color {
     }
 }
 
-impl PartialEq for Color {
-    fn eq(&self, other: &Color) -> bool {
+impl ApproxEq<&Color> for &Color {
+    fn approx_eq(self, other: &Color) -> bool {
         (self.red.approx_eq(other.red))
             && (self.green.approx_eq(other.green))
             && (self.blue.approx_eq(other.blue))
@@ -85,6 +85,7 @@ impl ops::Mul<&Color> for &Color {
 #[cfg(test)]
 mod tests {
     use crate::colors::Color;
+    use crate::tuples::ApproxEq;
     #[test]
     fn colors_are_red_green_blue_tuples() {
         let c = Color {
@@ -92,14 +93,14 @@ mod tests {
             green: 0.4,
             blue: 1.7,
         };
-        assert_eq!(c.red, -0.5);
-        assert_eq!(c.green, 0.4);
-        assert_eq!(c.blue, 1.7);
+        assert!(c.red.approx_eq(-0.5));
+        assert!(c.green.approx_eq(0.4));
+        assert!(c.blue.approx_eq(1.7));
     }
     #[test]
     fn adding_colors() {
         let c1 = Color::color(0.9, 0.6, 0.75);
         let c2 = Color::color(0.7, 0.1, 0.25);
-        assert_eq!(&c1 + &c2, Color::color(1.6, 0.7, 1.0))
+        assert!((&c1 + &c2).approx_eq(&Color::color(1.6, 0.7, 1.0)))
     }
 }
